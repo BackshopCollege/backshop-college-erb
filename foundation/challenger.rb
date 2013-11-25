@@ -1,34 +1,25 @@
 =begin
   
-  What is supposed to do here ?
-  Your code must change the local_variable value assigned in the run method
-  in the changer method.
-
-  You 
-     . can not change the method signature
-     . can not use return statement
-
+ Congratulations
+ Now, you know how to capture the scope and assign it to other variable.
+ To read more about it:
+   http://www.ruby-doc.org/core-2.0.0/Binding.html
+   
 =end
 
 def changer(argument)
   variable = "accepted"
- 
-  #
-  # WRITE YOUR CODE HERE.
-  #
   
+  # argument is the captured scoped bindings
+  eval("local_variable='#{variable}'", argument)
+
 end
 
 def run
 
   local_variable = 1_000_000
- 
-  #
-  # WRITE YOUR CODE HERE
-  # YOUR CODE MUST CALL THE 'changer' METHOD
-  # YOU CAN NOT MAKE ANY ASSIGNMENT TO 'local_variable' VARIABLE HERE
-  #
-  
+  #capture all visible bindings (scope)
+  changer(binding)
   return local_variable
 
 end
