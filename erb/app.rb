@@ -7,8 +7,15 @@ class Template
         <body> 
           <span> User: <%= @user.name %> </span>
           <span> Email: <%= @user.email %> </span> 
+          <%=partial Template.index_partial %>
         </body>
       </html>
+    HEREDOC
+  end
+
+  def self.index_partial
+    <<-HEREDOC
+    <span>Company: Linkedcare </span>
     HEREDOC
   end
 end
@@ -16,6 +23,10 @@ end
 class ApplicationController
   def render(template)
     ERB.new(template).result(binding)
+  end
+
+  def partial(template)
+    ERB.new(template).result
   end
 end
 
