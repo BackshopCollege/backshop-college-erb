@@ -1,6 +1,11 @@
 require 'erb'
 
-template = '<html><body> STATIC TEMPLATE </body></html>'
-compiled = ERB.new(template)
+class Template
+  def self.index
+    '<html><body> STATIC TEMPLATE </body></html>'
+  end
+end
+
+compiled = ERB.new(Template.index)
 
 puts compiled.result
