@@ -2,17 +2,37 @@ require 'erb'
 
 class Template
   def self.index
-    '<html><title> <%= title %> </title></html>'
+    <<-HEREDOC
+      <html>
+        <body> 
+          <span> User: <%= @user.name %> </span>
+          <span> Email: <%= @user.email %> </span> 
+        </body>
+      </html>
+    HEREDOC
   end
 end
 
-
-def title
-  "Backshop College"
+class ApplicationController
+  def render(template)
+    ERB.new(template).result(binding)
+  end
 end
 
-compiled = ERB.new(Template.index)
+class User
+  attr_accessor :name, :email
+  def initialize(name, email)
+    @name = name
+    @email = email
+  end
+end
 
-#Capture the scope and call erb with the bindings
-captured_bindings = binding
-puts compiled.result(captured_bindings)
+class UsersController < ApplicationController
+  def index
+    @user = User.new('Thiago Dantas', 'thiago.chapa@gmail.com')
+    render Template.index
+  end
+end
+
+controller = UsersController.new
+puts controller.index
